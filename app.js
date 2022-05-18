@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var datetimeRouter = require('./routes/datetime');
+var blogsRouter = require('./routes/blogs');
 
 var app = express();
 
@@ -21,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/datetime', datetimeRouter);
+app.use('/blogs', blogsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,8 +45,10 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 //npx express-generator -e //in the project folder - this will install express
-// npm i - will install all the dependency in the folder
+// npm i - this will install all the dependency in the folder
 //npm i --save-dev nodemon - 
+
+// -e is ejs engine support
 
 // to install nodemon as dev dependency
 // npm i -g nodemon - this will install in desktop. I can run with any folder
