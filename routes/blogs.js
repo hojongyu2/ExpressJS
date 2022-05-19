@@ -31,7 +31,7 @@ router.get('/all', (req, res) => {
     //all?sort=desc
 });
 
-router.get('/:blogId', function (req, res, next) {
+router.get('/singleBlog:blogId', function (req, res, next) {
     const blogId = req.params.blogId;
     res.json(findBlogId(blogId))
 });
@@ -41,8 +41,30 @@ function findBlogId (blogId){
         return blog.id === blogId
     })
     return foundBlog;
-}
+};
 
+router.get('/postblog', (req, res, next) => {
+    res.render('postBlog')
+});
+//when click submit, it will store it's value as body
+//req.body
+
+router.post('/submit', (req, res, next) => {
+    console.log(req.body)
+    const today = new Date()
+    const newPost = {
+        title: req.body.title,
+        text: req.body.text,
+        author: req.body.author,
+        createdAt: today.toISOString(),
+        id: String(blogs.blogPosts.length + 1)
+    }
+    blogs.blogPosts.push(newPost);
+    console.log(blogs.blogPosts);
+
+    res.send('ok')
+
+});
 
 
 module.exports = router;
